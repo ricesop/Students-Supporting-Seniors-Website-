@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Students Supporting Seniors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFCF3; --surface:#FFFFFF; --ink:#1E2160; --muted:#4A4F7A;
+  --teal:#2D63F0; --teal-ink:#FFFFFF; --sun:#FFC83D; --sun-ink:#1E2160;
+  --c1:#FFD3E3; --c2:#FFE9A0; --c3:#CFE5FF; --c4:#CFF2D6;
+  --lilac:#CFE5FF; --line:#E3E6F5;
+  --head:"Bricolage Grotesque","Trebuchet MS",sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",Verdana,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111633; --surface:#1B2150; --ink:#F3F5FF; --muted:#BCC3E6;
+    --teal:#7AA8FF; --teal-ink:#0F1A3D; --sun:#FFC83D; --lilac:#2A3C78; --line:#343C7A; --c1:#5A2B50; --c2:#5A4A1A; --c3:#25427A; --c4:#1F4F46;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111633; --surface:#1B2150; --ink:#F3F5FF; --muted:#BCC3E6;
+  --teal:#7AA8FF; --teal-ink:#0F1A3D; --sun:#FFC83D; --lilac:#2A3C78; --line:#343C7A; --c1:#5A2B50; --c2:#5A4A1A; --c3:#25427A; --c4:#1F4F46;
+  color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.125rem/1.65 var(--body);-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--head);line-height:1.08;margin:0;letter-spacing:-.02em}
+p{margin:0 0 1rem;max-width:62ch}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.25rem}
+section{padding:4.5rem 0}
+h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin-bottom:1rem}
+.lede{color:var(--muted);font-size:1.2rem}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem 0}
+.logo{font-family:var(--head);font-weight:800;text-decoration:none;font-size:1.1rem;display:flex;align-items:center;gap:.5rem}
+.logo i{width:2rem;height:2rem;border-radius:50% 50% 50% 8px;background:var(--sun);display:inline-block}
+nav ul{display:flex;gap:1.25rem;list-style:none;margin:0;padding:0}
+nav a{text-decoration:none;font-weight:700;padding:.4rem 0}
+nav a:hover{text-decoration:underline;text-underline-offset:5px}
+.nav{flex-wrap:wrap}
+nav a[aria-current="page"]{text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:var(--sun);text-underline-offset:6px}
+@media(max-width:720px){nav{order:3;width:100%}nav ul{gap:1.1rem;overflow-x:auto;white-space:nowrap;padding-bottom:.2rem}.hbtn{display:none}}
+.btn{display:inline-block;border:0;cursor:pointer;font:700 1.05rem var(--body);padding:.9rem 1.5rem;border-radius:999px;background:var(--teal);color:var(--teal-ink);text-decoration:none;min-height:48px}
+.btn.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn:hover{filter:brightness(1.08)}
+
+/* hero: a conversation */
+.hero{padding:3.5rem 0 4.5rem}
+.hero h1{font-size:clamp(2.6rem,8vw,5.2rem);font-weight:800;max-width:14ch}
+.hero .lede{margin:1.5rem 0 2rem;max-width:48ch}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem}
+.talk{display:grid;gap:1rem;margin-top:3rem;max-width:640px}
+.bubble{padding:1.1rem 1.4rem;border-radius:26px;font-size:1.2rem;max-width:30rem;position:relative}
+.bubble small{display:block;font-weight:700;font-size:.9rem;margin-bottom:.15rem;opacity:.8}
+.s{background:var(--lilac);border-bottom-left-radius:6px;justify-self:start}
+.e{background:var(--sun);color:var(--sun-ink);border-bottom-right-radius:6px;justify-self:end}
+.bubble{opacity:0;transform:translateY(10px);animation:pop .5s ease forwards}
+.bubble:nth-child(2){animation-delay:.9s}.bubble:nth-child(3){animation-delay:1.8s}.bubble:nth-child(4){animation-delay:2.7s}
+@keyframes pop{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.bubble{animation:none;opacity:1;transform:none}html{scroll-behavior:auto}}
+
+.band{background:var(--surface);border-block:1px solid var(--line)}
+.two{display:grid;gap:2.5rem;grid-template-columns:1fr 1fr}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+.problem p{font-size:1.2rem}
+
+/* steps */
+.steps{display:grid;gap:1.25rem;grid-template-columns:repeat(3,1fr);margin-top:2rem;counter-reset:s}
+@media(max-width:800px){.steps{grid-template-columns:1fr}}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1.5rem;counter-increment:s}
+.step::before{content:counter(s);display:grid;place-items:center;width:2.6rem;height:2.6rem;border-radius:50%;background:var(--teal);color:var(--teal-ink);font:800 1.2rem var(--head);margin-bottom:1rem}
+.step h3{font-size:1.4rem;margin-bottom:.5rem}
+.step p{margin:0;color:var(--muted)}
+
+/* ways */
+.ways{display:grid;gap:1rem;grid-template-columns:repeat(2,1fr);margin-top:2rem}
+@media(max-width:700px){.ways{grid-template-columns:1fr}}
+.way{padding:1.5rem;border-radius:20px;border:2px solid var(--line)}
+.way:nth-child(1){background:var(--c1);border-color:var(--c1)}
+.way:nth-child(2){background:var(--c2);border-color:var(--c2)}
+.way:nth-child(3){background:var(--c3);border-color:var(--c3)}
+.way:nth-child(4){background:var(--c4);border-color:var(--c4)}
+.way p{color:var(--ink)}
+.way h3{font-size:1.35rem;margin-bottom:.4rem}
+.way p{margin:0;color:var(--muted)}
+
+/* quote */
+.quote{background:var(--teal);color:var(--teal-ink)}
+.quote blockquote{margin:0;font:700 clamp(1.5rem,4vw,2.4rem)/1.25 var(--head);max-width:34ch;letter-spacing:-.01em}
+.quote cite{display:block;margin-top:1.2rem;font:400 1.05rem var(--body);font-style:normal;opacity:.9}
+
+/* form */
+.tabs{display:inline-flex;gap:.4rem;background:var(--lilac);padding:.35rem;border-radius:999px;margin:1.5rem 0 1.5rem}
+.tab{border:0;background:transparent;color:var(--ink);font:700 1rem var(--body);padding:.7rem 1.2rem;border-radius:999px;cursor:pointer;min-height:44px}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+form{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:1.75rem;display:grid;gap:1.1rem;max-width:620px}
+label{font-weight:700;display:grid;gap:.4rem}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:.8rem 1rem;min-height:48px;width:100%}
+textarea{min-height:110px;resize:vertical}
+.done{display:none;background:var(--surface);border:2px solid var(--teal);border-radius:24px;padding:1.75rem;max-width:620px}
+.done.show{display:block}
+.done h3{font-size:1.6rem;margin-bottom:.5rem}
+.note{font-size:.95rem;color:var(--muted)}
+
+footer{padding:2.5rem 0 3rem;border-top:1px solid var(--line);color:var(--muted);font-size:1rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+.js .view{display:none}.js .view.on{display:block}
+.pagehead{padding:3.5rem 0 1.5rem}
+.pagehead h1{font-size:clamp(2.4rem,7vw,4.2rem);font-weight:800;max-width:16ch}
+.pagehead .lede{margin-top:1rem;max-width:48ch}
+.list{padding-left:1.2rem;margin:0}.list li{margin-bottom:.6rem;max-width:52ch}
+.portrait{min-height:300px;border-radius:28px;background:var(--lilac);display:grid;place-items:center;color:var(--muted);font-weight:700}
+.three{display:grid;gap:1rem;grid-template-columns:repeat(3,1fr)}
+@media(max-width:800px){.three{grid-template-columns:1fr}}
+.pull{margin-top:1.5rem;padding:1.25rem 1.5rem;border-radius:20px;background:var(--lilac);font:700 1.25rem/1.4 var(--head)}
+fieldset{border:1px solid var(--line);border-radius:16px;padding:1.2rem;display:grid;gap:1rem;margin:0;min-width:0}
+legend{font:700 1.1rem var(--head);padding:0 .4rem}
+label.inl{display:flex;gap:.6rem;align-items:center;font-weight:400}
+.yn{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;align-items:center}.yn span{font-weight:700;flex-basis:100%}
+input[type=radio],input[type=checkbox]{width:1.4rem;min-height:1.4rem;height:1.4rem;accent-color:var(--teal);flex:none}
+h3{font-size:1.4rem}
+nav ul{flex-wrap:wrap;row-gap:.2rem}
+details{border:2px solid var(--line);border-radius:16px;padding:.9rem 1.2rem;background:var(--surface);margin-bottom:.8rem}
+summary{cursor:pointer;font:700 1.15rem var(--head);min-height:44px;display:flex;align-items:center}
+details p{margin:.4rem 0 .4rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#home"><i aria-hidden="true"></i>Students Supporting Seniors</a>
+    <nav aria-label="Main"><ul>
+      <li><a href="#home" data-v="home">Home</a></li>
+      <li><a href="#about" data-v="about">About</a></li>
+      <li><a href="#support" data-v="support">Who we support</a></li>
+      <li><a href="#companion" data-v="companion">Get involved</a></li>
+      <li><a href="#safety" data-v="safety">Safety &amp; FAQ</a></li>
+      <li><a href="#chapters" data-v="chapters">Chapters &amp; partners</a></li>
+    </ul></nav>
+    <a class="btn hbtn" href="#donate">Donate</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="view" id="v-home">
+<section class="hero">
+  <div class="wrap">
+    <h1>Connecting generations, creating friendships.</h1>
+    <p class="lede">We believe no senior should feel forgotten. Students and older adults build friendship through conversation, kindness, service, and advocacy.</p>
+    <div class="cta">
+      <a class="btn" href="#companion">Become a volunteer</a>
+      <a class="btn alt" href="#support">Who we support</a>
+    </div>
+    <div class="talk" aria-label="Example conversation between a student and a senior">
+      <div class="bubble s"><small>Maya, 19, student</small>What was your very first job?</div>
+      <div class="bubble e"><small>Walter, 82, retired machinist</small>Pull up a chair. I sold newspapers on a corner for two cents a copy.</div>
+      <div class="bubble s"><small>Maya</small>Two cents! Okay, I need the whole story.</div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap two problem">
+    <div>
+      <h2>Our mission</h2>
+    </div>
+    <div>
+      <p>To reduce loneliness and isolation by connecting students with older adults, creating meaningful relationships, and advocating for better resources.</p>
+      <p>A little of your time can mean the world to someone else.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="three">
+      <div class="way"><h3>Service</h3><p>Meaningful visits, calls, and acts of kindness.</p></div>
+      <div class="way"><h3>Connection</h3><p>Friendships built through listening and sharing.</p></div>
+      <div class="way"><h3>Advocacy</h3><p>Student voices supporting seniors’ needs.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it works</h2>
+    <p class="lede">We handle the matching and the safety. You show up and talk.</p>
+    <div class="steps">
+      <div class="step"><h3>Tell us about you</h3><p>Share your interests, availability, location, and how you’d like to stay in touch.</p></div>
+      <div class="step"><h3>Meet your match</h3><p>We match students and older adults by interests, availability, location, and communication preferences.</p></div>
+      <div class="step"><h3>Keep showing up</h3><p>Check in every week and meet in person about once a month when it’s feasible. Consistent connection matters more than one-time service.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="ways" class="band">
+  <div class="wrap">
+    <h2>What we do</h2>
+    <p class="lede">Four ways students and older adults connect.</p>
+    <div class="ways">
+      <div class="way"><h3>Friendly Connections</h3><p>Regular calls and conversations that build companionship, by phone, video, or letter.</p></div>
+      <div class="way"><h3>Visits That Matter</h3><p>Organized visits and shared activities with participating senior communities, about once a month when feasible.</p></div>
+      <div class="way"><h3>Small Acts, Big Smiles</h3><p>Handwritten notes, holiday kindness projects, and thoughtful gestures.</p></div>
+      <div class="way"><h3>Students Leading Change</h3><p>Student-led projects, school chapters, and awareness-building advocacy.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <blockquote>A student’s time, attention, and friendship can make a real difference. Students have just as much to learn from the seniors they serve.</blockquote>
+    <cite>What we believe</cite>
+  </div>
+</section>
+
+</div>
+
+<div class="view" id="v-companion">
+<section class="pagehead">
+  <div class="wrap">
+    <h1>Get involved</h1>
+    <p class="lede">A little of your time can mean the world to someone else. Choose how you’d like to join in.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="three">
+      <div class="way"><h3>Become a volunteer</h3><p>Build a friendship with an older adult through regular calls, visits, and kindness projects.</p></div>
+      <div class="way"><h3>Start a school chapter</h3><p>Bring Students Supporting Seniors to your school with student-led projects and advocacy. <a href="#chapters">Learn more</a></p></div>
+      <div class="way"><h3>Partner with us</h3><p>Schools, senior communities, churches, senior centers, and community organizations can help create safe opportunities to connect. <a href="#chapters">Learn more</a></p></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <p class="lede">Which describes you?</p>
+    <div class="cta">
+      <button class="btn" type="button" data-scroll="sec-student">I’m a student</button>
+      <button class="btn alt" type="button" data-scroll="sec-senior">I’m a senior or family member</button>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="sec-student">
+  <div class="wrap">
+    <h2>For students</h2>
+    <p class="lede">Middle school, high school, and college students who want to make a consistent and meaningful difference.</p>
+    <div class="two">
+      <div>
+        <h3>What we ask</h3>
+        <ul class="list">
+          <li>A weekly phone call, video call, letter, or other approved check-in</li>
+          <li>In-person time about once a month when feasible and permitted</li>
+          <li>One kindness or community activity each month</li>
+          <li>A simple contact log, so we can see that matches are staying consistent</li>
+        </ul>
+        <p>After you apply, we confirm consent and your emergency contact, finish required screening and training, and send you and your match a written introduction. A program leader checks in after about 1 week, 1 month, and 2 months.</p>
+      </div>
+      <div>
+        <h3>Volunteer boundaries</h3>
+        <ul class="list">
+          <li>Students are companions, not caregivers, nurses, or emergency responders</li>
+          <li>No handling medication, banking, credit cards, passwords, legal documents, or money</li>
+          <li>No lifting, bathing, toileting, feeding help, wound care, or other personal care</li>
+          <li>No taking or asking for significant gifts, loans, or money</li>
+          <li>No transporting a senior unless our parent nonprofit has approved it</li>
+          <li>Don’t enter a private home alone. Minors use approved common areas or another adult-present arrangement</li>
+          <li>No photos, recordings, or posts of a senior without written permission</li>
+          <li>Report any concern right away to the designated adult</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin:2.5rem 0 1rem">Student volunteer application</h3>
+    <form id="f-student"></form>
+    <div class="done" id="d-student" role="status" tabindex="-1">
+      <h3 id="dh-student">Thank you!</h3>
+      <p>We’ll be in touch about screening, training, and your first match.</p>
+      <div class="mailbox"></div>
+    </div>
+  </div>
+</section>
+
+<section id="sec-senior">
+  <div class="wrap">
+    <h2>For seniors and families</h2>
+    <p class="lede">For older adults who would welcome more companionship, conversation, and connection. A family member, caregiver, or referring organization can fill this out too.</p>
+    <h3>What to expect</h3>
+    <ul class="list">
+      <li>A student who contacts you weekly by phone, video, or letter, and visits about once a month when feasible and permitted</li>
+      <li>A match based on your interests, schedule, preferred contact method, and location</li>
+      <li>Companionship and friendly activities, not medical care, personal care, or financial help</li>
+      <li>You or your match can pause or end the match at any time, without penalty</li>
+      <li>We can’t promise a perfect match, but we offer a respectful rematch</li>
+    </ul>
+    <h3 style="margin:2.5rem 0 1rem">Senior participant and family intake</h3>
+    <form id="f-senior"></form>
+    <div class="done" id="d-senior" role="status" tabindex="-1">
+      <h3 id="dh-senior">Thank you!</h3>
+      <p>We’ll reach out soon to talk about the right match.</p>
+      <div class="mailbox"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="v-about">
+<section class="pagehead">
+  <div class="wrap">
+    <h1>About Students Supporting Seniors</h1>
+    <p class="lede">A small idea: people of different ages should know each other.</p>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <div>
+      <h2>Who we are</h2>
+      <p>Students Supporting Seniors (SSS) is a student-led community service initiative that brings generations together through friendship, companionship, kindness, and meaningful connection.</p>
+      <p>SSS is an initiative of A Better Tomorrow Montgomery County / JDR Community Initiatives. A Better Tomorrow Montgomery County is a registered 501(c)(3) nonprofit organization.</p>
+      <p>Our goal is simple: create genuine relationships between students and older adults while giving young people a meaningful, structured way to serve their communities.</p>
+      <p>Led by Sophia, the initiative connects students with seniors through meaningful service, companionship, and community engagement.</p>
+
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap two">
+    <div class="portrait" role="img" aria-label="Placeholder for a photo of Sophia"><span>Photo of Sophia</span></div>
+    <div>
+      <h2>Meet Sophia</h2>
+      <p>Hi! I’m Sophia, founder of Students Supporting Seniors.</p>
+      <p>For years, I’ve spent time with seniors in my community through visits to retirement homes, nursing homes, and memory care centers. I’ve delivered meals, helped with a Meals on Wheels fundraiser, and, most of all, listened to their stories and wisdom.</p>
+      <p>When I joined National Charity League in seventh grade, volunteering became more structured, but my connection to seniors started long before that.</p>
+      <p>Through speech and debate, I’ve given speeches about loneliness and learned how to turn listening into action. Hearing seniors’ experiences has helped me understand how important companionship, community support, and accessible resources can be.</p>
+      <p>I founded Students Supporting Seniors to bring more students into this work: to serve, build friendships, develop leadership skills, and advocate for better resources and stronger community connections so older adults feel less alone.</p>
+      <p>My goal is to create meaningful change by listening to seniors, helping others understand their needs, and working together to take action.</p>
+      <p class="pull">“I’ve spent years listening to their stories. Now I want to help make sure their voices are heard.”</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>What we believe</h2>
+    <div class="ways">
+      <div class="way"><h3>Both people give</h3><p>Seniors aren’t a charity project. Students bring energy and tech skills. Seniors bring experience and time.</p></div>
+      <div class="way"><h3>Show up, again and again</h3><p>Friendship grows from consistency, so we match for the long haul, not a one-time visit.</p></div>
+      <div class="way"><h3>Safety comes first</h3><p>We work with schools, senior communities, churches, senior centers, and community organizations to create safe opportunities for connection.</p></div>
+      <div class="way"><h3>Dignity over pity</h3><p>We build empathy by listening, not by feeling sorry for anyone.</p></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="v-support">
+<section class="pagehead">
+  <div class="wrap">
+    <h1>Who we support</h1>
+    <p class="lede">Older adults who would welcome more companionship, conversation, and connection with younger generations.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="ways">
+      <div class="way"><h3>Living independently</h3><p>Older adults who simply enjoy having another meaningful relationship in their lives.</p></div>
+      <div class="way"><h3>Living with family</h3><p>Family is close, and a student friend adds one more connection.</p></div>
+      <div class="way"><h3>In senior living communities</h3><p>We work with senior communities and senior centers to create safe opportunities to connect.</p></div>
+      <div class="way"><h3>Living alone or feeling isolated</h3><p>Welcome, though participation isn’t limited to seniors who are alone.</p></div>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap two">
+    <div>
+      <h2>Where we serve</h2>
+      <p>SSS is being developed to serve the North Houston region, initially across Harris and Montgomery Counties.</p>
+      <p>That includes The Woodlands, Conroe, Magnolia, Klein, Spring, Porter, New Caney, Aldine, Atascocita, Kingwood, and neighboring communities.</p>
+    </div>
+    <div>
+      <h2>Who volunteers</h2>
+      <p>Our student volunteers may include middle school, high school, and college students who want to make a consistent and meaningful difference.</p>
+      <p>As the program grows, local chapters and community partnerships will help extend its reach.</p>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>Ask for a companion</h2>
+    <p class="lede">Tell us about yourself or an older adult you know, and we’ll look for a thoughtful match.</p>
+    <a class="btn" href="#companion" data-mode="senior">Request a companion</a>
+  </div>
+</section>
+</div>
+
+<div class="view" id="v-safety">
+<section class="pagehead">
+  <div class="wrap">
+    <h1>Safety and FAQ</h1>
+    <p class="lede">Safe, respectful friendships come first. Here is how we protect students and older adults, and answers to common questions.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>How we keep everyone safe</h2>
+    <div class="ways">
+      <div class="way"><h3>Adult oversight</h3><p>Every chapter has an approved adult adviser. One adult program director can pause a match, address incidents, and keep records.</p></div>
+      <div class="way"><h3>Consent and check-ins</h3><p>Parent or guardian consent is required for minor volunteers. Every participant has an emergency contact, and organized visits use check-in and check-out.</p></div>
+      <div class="way"><h3>Clear boundaries</h3><p>Students are companions. They don’t handle money or medication, give personal care, or enter a private home alone.</p></div>
+      <div class="way"><h3>Speaking up</h3><p>Concerns go straight to a designated adult. Either person can pause or end a match at any time, without penalty.</p></div>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap two">
+    <div>
+      <h2>Visit safety</h2>
+      <ul class="list">
+        <li>Students give the program director the schedule and location of organized in-person visits</li>
+        <li>If a senior doesn’t answer an expected call or visit, students follow our no-answer protocol. They don’t enter, search, or contact emergency services on their own unless there is an immediate, apparent emergency</li>
+        <li>Minors meet in approved common areas or another approved adult-present setting</li>
+        <li>Students don’t transport seniors unless our parent nonprofit has approved a transportation policy and insurance coverage</li>
+      </ul>
+    </div>
+    <div>
+      <h2>If there’s a concern</h2>
+      <ul class="list">
+        <li>Students report suspected abuse, neglect, exploitation, threats, unsafe conditions, harassment, boundary violations, or concerning behavior to the designated adult right away</li>
+        <li>The adult program leader decides next steps under applicable law and our policies. Students don’t investigate</li>
+        <li>Incidents are documented factually and kept confidential, with limited access</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap two">
+    <div>
+      <h2>Privacy</h2>
+      <ul class="list">
+        <li>No photos, recordings, or social media posts of a senior without written permission</li>
+        <li>We track only what is useful, such as contact logs and service hours, and avoid collecting unnecessary private details</li>
+        <li>Stories and results are shared only with permission</li>
+      </ul>
+    </div>
+    <div>
+      <h2>What students learn in training</h2>
+      <ul class="list">
+        <li>What companionship means</li>
+        <li>Respectful communication and active listening</li>
+        <li>Ageism, and treating older adults as individuals</li>
+        <li>Privacy and social media rules</li>
+        <li>Boundaries around money, medical help, transportation, gifts, physical help, and private homes</li>
+        <li>What to do if a senior is upset, confused, unwell, doesn’t answer, or shares a safety concern</li>
+        <li>How to log contact and request help or a rematch</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <h2>Frequently asked questions</h2>
+    <details><summary>What is Students Supporting Seniors?</summary><p>SSS connects student volunteers with older adults to build meaningful intergenerational relationships through regular conversation, companionship, kindness projects, and community activities. It reduces isolation while giving students a structured way to serve, listen, learn, and build lasting community connections.</p></details>
+    <details><summary>Who can volunteer?</summary><p>Middle school, high school, and college students who want to make a consistent and meaningful difference in their communities.</p></details>
+    <details><summary>Who can be matched with a student?</summary><p>Older adults who would welcome more companionship, conversation, and connection with younger generations. You don’t have to live alone or feel isolated. Participants live independently, with family, or in senior living communities.</p></details>
+    <details><summary>How much time does it take?</summary><p>Students are asked to make weekly contact by phone, video, letter, or another approved method, meet in person once a month when feasible and permitted, and join one kindness or community activity each month.</p></details>
+    <details><summary>How are matches made?</summary><p>We consider shared interests and conversation topics, schedules, preferred contact method and frequency, location and approved visit setting, and language and communication needs. We also consider comfort with pets, mobility and accessibility needs, and family involvement.</p></details>
+    <details><summary>Do students provide care or help with errands?</summary><p>No. Students are not caregivers, nurses, therapists, home-health workers, financial helpers, drivers, or emergency responders. They offer companionship and age-appropriate service.</p></details>
+    <details><summary>What if the match isn’t a good fit?</summary><p>Either person can ask for a change confidentially. The program director closes the match, notes the reason at a high level, and decides about a rematch. We never promise a perfect match. Graduating students give notice so a senior isn’t left without communication.</p></details>
+    <details><summary>Will photos be taken?</summary><p>Only with written permission from the senior, or from the parent or guardian of a minor.</p></details>
+    <details><summary>Where do you serve?</summary><p>SSS is being developed for the North Houston region, starting across Harris and Montgomery Counties. See the Who we support page for the list of communities.</p></details>
+    <details><summary>Who runs SSS?</summary><p>SSS is student-led, led by Sophia, and is an initiative of A Better Tomorrow Montgomery County / JDR Community Initiatives, with adult oversight.</p></details>
+    <details><summary>How can my school or organization get involved?</summary><p>Start a school chapter or become a community partner on our <a href="#chapters">Chapters and partners</a> page.</p></details>
+    <p style="margin-top:1.5rem">Still have a question? Email <a href="mailto:info@studentssupportingseniors.org">info@studentssupportingseniors.org</a>.</p>
+  </div>
+</section>
+</div>
+
+<div class="view" id="v-chapters">
+<section class="pagehead">
+  <div class="wrap">
+    <h1>Chapters and partners</h1>
+    <p class="lede">We work with schools, senior communities, churches, senior centers, and community organizations to create safe opportunities for intergenerational connection.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <h2>Start a school chapter</h2>
+    <p class="lede">Bring SSS to your school with student leaders and an adult adviser.</p>
+    <div class="two">
+      <div>
+        <h3>Chapter leadership</h3>
+        <ul class="list">
+          <li>Student President / Executive Lead: coordinates student leadership and chapter goals</li>
+          <li>Vice President / Operations: supports matching events, calendars, and chapter reporting</li>
+          <li>Senior Outreach Lead: coordinates approved community partner outreach</li>
+          <li>Student Recruitment / Training Lead: supports volunteer onboarding and training</li>
+          <li>Communications Lead: manages approved newsletters, stories, and social content</li>
+          <li>Service / Kindness Project Lead: plans monthly group projects</li>
+          <li>Adult Adviser / Program Director: keeps adult oversight and safety authority</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Chapter standards</h3>
+        <ul class="list">
+          <li>Each chapter has an approved adult adviser</li>
+          <li>All volunteers complete the same core training and forms</li>
+          <li>Chapters use central SSS branding and don’t create independent legal or financial commitments</li>
+          <li>A monthly report covers active volunteers, active matches, contacts and visits, service hours, activities, concerns, and upcoming plans</li>
+          <li>Leadership transition begins before the end of each school year</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin:2.5rem 0 1rem">Chapter application</h3>
+    <form id="f-chapter"></form>
+    <div class="done" id="d-chapter" role="status" tabindex="-1">
+      <h3 id="dh-chapter">Thank you!</h3>
+      <p>We’ll review your application and contact your adult adviser.</p>
+      <div class="mailbox"></div>
+    </div>
+  </div>
+</section>
+<section class="band">
+  <div class="wrap">
+    <h2>Become a community partner</h2>
+    <p class="lede">Independent and assisted living communities, senior centers, churches and faith communities, aging-service organizations, Meals on Wheels and other community programs, libraries, and other established community organizations are all welcome.</p>
+    <div class="two">
+      <div>
+        <h3>Starting small, on purpose</h3>
+        <p>During our pilot we partner with a limited number of sites so we can supervise quality and keep everyone safe.</p>
+      </div>
+      <div>
+        <h3>Our first conversation</h3>
+        <ul class="list">
+          <li>We explain our mission, student supervision, safety boundaries, and pilot size</li>
+          <li>We ask how seniors should be referred, and about your volunteer screening, training, privacy, or visitor requirements</li>
+          <li>We identify one partner contact for scheduling and concerns</li>
+          <li>We never promise services outside SSS’s defined scope</li>
+        </ul>
+      </div>
+    </div>
+    <h3 style="margin:2.5rem 0 1rem">Community partner intake</h3>
+    <form id="f-partner"></form>
+    <div class="done" id="d-partner" role="status" tabindex="-1">
+      <h3 id="dh-partner">Thank you!</h3>
+      <p>We’ll contact you to set up a first conversation.</p>
+      <div class="mailbox"></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="view" id="v-donate">
+<section class="pagehead">
+  <div class="wrap">
+    <h1>Support our work</h1>
+    <p class="lede">Your gift helps students and older adults build real friendships, run kindness projects, train volunteers, and bring SSS to new schools and communities.</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <p>Donations to Students Supporting Seniors are handled by our parent organization, A Better Tomorrow Montgomery County, a registered 501(c)(3) nonprofit organization.</p>
+        <p><a class="btn" href="https://abtmc.org" target="_blank" rel="noopener">Donate at abtmc.org</a></p>
+        <p class="note">This opens abtmc.org, the website of A Better Tomorrow Montgomery County, in a new tab.</p>
+      </div>
+      <div>
+        <h3>Other ways to help</h3>
+        <ul class="list">
+          <li><a href="#companion">Volunteer as a student</a></li>
+          <li><a href="#chapters">Start a chapter or become a partner</a></li>
+          <li>Tell a senior or family who might enjoy a companion</li>
+        </ul>
+        <p>Questions about giving? Email <a href="mailto:info@studentssupportingseniors.org">info@studentssupportingseniors.org</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Students Supporting Seniors is an initiative of A Better Tomorrow Montgomery County / JDR Community Initiatives. A Better Tomorrow Montgomery County is a registered 501(c)(3) nonprofit organization.</span>
+    <span>Student-led service. Real relationships. A stronger voice for seniors.</span>
+    <span>Contact: <a href="mailto:info@studentssupportingseniors.org">info@studentssupportingseniors.org</a> &middot; <a href="#donate">Donate</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var S=[['#','Student application'],
+   ['name','Student name','text',1],['school','School and grade','text',1],['contact','Student email or phone','text',1],
+   ['pname','Parent or guardian name (if under 18)','text'],['pcontact','Parent or guardian email or phone','text'],
+   ['area','Preferred service area','text'],['avail','Availability','text'],['interests','Interests and hobbies','text'],
+   ['langs','Languages spoken','text'],
+   ['acts','Preferred contact activities','select',['Weekly calls or video chats','Letters and cards','In-person visits','Kindness projects','A mix of these']],
+   ['why','Why I want to participate','area'],['emerg','Emergency contact','text',1],
+   ['#','Parent or guardian consent (required if the student is under 18)'],
+   ['cname','Parent or guardian name','text'],['cphone','Best phone or email','text'],
+   ['settings','Approved participation settings','text'],['transport','Transportation arrangements','text'],
+   ['comms','I give permission for program communications','check'],['photo','Photo and media permission','yn'],
+   ['csign','Parent or guardian signature (type your full name)','text'],['cdate','Date','date'],
+   ['#','Agreement'],['agree','I have read the volunteer boundaries above and agree to follow them.','check',1]];
+  var E=[['#','About the senior participant'],
+   ['name','Senior participant name','text',1],['pref','Preferred name','text'],['contact','Phone or email','text',1],
+   ['family','Family or referring contact','text'],['emerg','Emergency contact','text',1],
+   ['comm','Preferred communication method','select',['Phone calls','Video calls','Letters','In person','No preference']],
+   ['days','Preferred days and times','text'],['interests','Interests and hobbies','text'],['langs','Languages','text'],
+   ['#','Visit details'],
+   ['mobility','Mobility or accessibility considerations relevant to visits','text'],
+   ['pets','Pets or other visit considerations','text'],['setting','Preferred visit setting','text'],
+   ['topics','Topics and activities you enjoy','area'],
+   ['#','Permission'],
+   ['photo','Photo and media permission','yn'],
+   ['sign','Participant or authorized signature (type your full name)','text'],['date','Date','date']];
+  function fld(id,f){
+    var n=id+'-'+f[0],t=f[2],r=f[3]===1?' required':'',h,i;
+    if(t==='area')return '<label>'+f[1]+'<textarea name="'+n+'"'+r+'></textarea></label>';
+    if(t==='select'){h='<label>'+f[1]+'<select name="'+n+'">';for(i=0;i<f[3].length;i++)h+='<option>'+f[3][i]+'</option>';return h+'</select></label>'}
+    if(t==='check')return '<label class="inl"><input type="checkbox" name="'+n+'"'+r+'> '+f[1]+'</label>';
+    if(t==='yn')return '<div class="yn"><span>'+f[1]+'</span><label class="inl"><input type="radio" name="'+n+'" value="Yes"> Yes</label><label class="inl"><input type="radio" name="'+n+'" value="No" checked> No</label></div>';
+    return '<label>'+f[1]+'<input name="'+n+'" type="'+(t||'text')+'"'+r+'></label>';
+  }
+  var TO='info@studentssupportingseniors.org';
+  var TITLES={student:'Student volunteer application',senior:'Senior participant intake',chapter:'Chapter application',partner:'Community partner intake'};
+  function gather(id,f,list){
+    var L=[],v,el;
+    list.forEach(function(x){
+      if(x[0]==='#'){L.push('',x[1].toUpperCase());return}
+      el=f.elements[id+'-'+x[0]];
+      v=x[2]==='check'?(el.checked?'Yes':'No'):(el.value||'').trim();
+      L.push(x[1]+': '+(v||'(not provided)'));
+    });
+    return L.join('\n');
+  }
+  function build(id,list,btn,nameKey){
+    var f=document.getElementById('f-'+id),h='',open=false;
+    list.forEach(function(x){
+      if(x[0]==='#'){h+=(open?'</fieldset>':'')+'<fieldset><legend>'+x[1]+'</legend>';open=true}
+      else h+=fld(id,x);
+    });
+    f.innerHTML=h+'</fieldset><button class="btn" type="submit">'+btn+'</button><p class="note" style="margin:0">Submitting opens an email to '+TO+'. Press Send in your email app to finish.</p>';
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var n=(id==='chapter'||id==='partner')?'':(f.elements[id+'-name'].value.trim().split(' ')[0])||'friend';
+      var first=f.elements[id+'-name'].value.trim();
+      var body=gather(id,f,list)+'\n\nSent from the Students Supporting Seniors website.';
+      var href='mailto:'+TO+'?subject='+encodeURIComponent('SSS '+TITLES[id]+' - '+first)+'&body='+encodeURIComponent(body);
+      var d=document.getElementById('d-'+id);
+      document.getElementById('dh-'+id).textContent='Almost done'+(n?', '+n:'')+'!';
+      d.querySelector('p').textContent='Your email app should open with your application ready. Press Send to submit it.';
+      var box=d.querySelector('.mailbox');
+      box.innerHTML='<p><a class="btn" href="'+href+'">Open email</a> <button class="btn alt" type="button" data-edit>Edit my answers</button></p><p class="note">If nothing opened, copy the text below and email it to <a href="mailto:'+TO+'">'+TO+'</a>.</p><textarea readonly aria-label="Application text to copy"></textarea>';
+      box.querySelector('textarea').value=body;
+      box.querySelector('[data-edit]').onclick=function(){d.classList.remove('show');f.style.display=''};
+      f.style.display='none';d.classList.add('show');d.focus();
+      try{box.querySelector('a').click()}catch(x){}
+    });
+  }
+  build('student',S,'Submit student application');
+  build('senior',E,'Submit request for a companion');
+  build('chapter',[['#','Chapter application'],['name','School or community','text',1],['lead','Student chapter lead','text',1],['adviser','Adult adviser','text',1],['acontact','Adviser email or phone','text',1],['count','Expected number of students','text'],['launch','Proposed launch date','date'],['partners','Community partners','text'],['training','Training plan','area'],['records','How records will be submitted to central SSS','area'],['approval','School approval needed or completed','text']],'Submit chapter application');
+  build('partner',[['#','Community partner intake'],['name','Organization','text',1],['contact','Primary contact','text',1],['phone','Phone or email','text',1],['address','Site address','text'],['pop','Type of senior population or program','text'],['vol','Volunteer requirements','area'],['visitor','Visitor and check-in requirements','area'],['bg','Background check requirements, if any','text'],['acts','Preferred activities','area'],['sched','Scheduling contact','text'],['esc','Incident escalation contact','text']],'Submit partner intake');
+  document.querySelectorAll('[data-scroll]').forEach(function(b){
+    b.addEventListener('click',function(){document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'})});
+  });
+})();
+(function(){
+  var names=['home','about','support','companion','safety','chapters','donate'],titles={safety:'Safety and FAQ | Students Supporting Seniors',chapters:'Chapters and partners | Students Supporting Seniors',donate:'Donate | Students Supporting Seniors',home:'Students Supporting Seniors',about:'About | Students Supporting Seniors',support:'Who we support | Students Supporting Seniors',companion:'Get involved | Students Supporting Seniors'};
+  document.documentElement.classList.add('js');
+  function route(){
+    var h=location.hash.slice(1);if(names.indexOf(h)<0)h='home';
+    names.forEach(function(n){document.getElementById('v-'+n).classList.toggle('on',n===h)});
+    document.querySelectorAll('nav a[data-v]').forEach(function(a){if(a.dataset.v===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+    document.title=titles[h];window.scrollTo(0,0);if(window._after&&h==='companion'){var id=window._after;window._after=null;setTimeout(function(){document.getElementById(id).scrollIntoView()},60)}
+  }
+  document.querySelectorAll('[data-mode="senior"]').forEach(function(b){b.addEventListener('click',function(){window._after='sec-senior'})});
+  window.addEventListener('hashchange',route);route();
+})();
+</script>
+</body>
+</html>
